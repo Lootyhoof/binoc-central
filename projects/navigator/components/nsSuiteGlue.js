@@ -563,7 +563,9 @@ SuiteGlue.prototype = {
     if (this._shouldShowUpdateWarning())
       notifyBox.showUpdateWarning();
 
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
     this._checkForDefaultClient(aWindow);
+#endif
   },
 
   /**
@@ -816,6 +818,7 @@ SuiteGlue.prototype = {
     return (buildTime + maxAge <= now);
   },
 
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
   // This method gets the shell service and has it check its settings.
   // This will do nothing on platforms without a shell service.
   _checkForDefaultClient: function checkForDefaultClient(aWindow)
@@ -839,6 +842,7 @@ SuiteGlue.prototype = {
       }
     } catch (e) {}
   },
+#endif
 
   /**
    * Initialize Places

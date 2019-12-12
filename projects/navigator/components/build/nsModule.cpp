@@ -9,6 +9,7 @@
 #include "nsRDFCID.h"
 #include "nsFeedSniffer.h"
 
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
 #if defined(XP_WIN)
 #include "nsWindowsShellService.h"
 #elif defined(XP_MACOSX)
@@ -16,9 +17,11 @@
 #elif defined(MOZ_WIDGET_GTK)
 #include "nsGNOMEShellService.h"
 #endif
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
 #if defined(XP_WIN)
 NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsWindowsShellService, Init)
 #elif defined(XP_MACOSX)
@@ -26,9 +29,11 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(nsMacShellService)
 #elif defined(MOZ_WIDGET_GTK)
 NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsGNOMEShellService, Init)
 #endif
+#endif
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsSuiteDirectoryProvider)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsFeedSniffer)
 
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
 #if defined(NS_SUITEWININTEGRATION_CID)
 NS_DEFINE_NAMED_CID(NS_SUITEWININTEGRATION_CID);
 #elif defined(NS_SUITEMACINTEGRATION_CID)
@@ -36,12 +41,14 @@ NS_DEFINE_NAMED_CID(NS_SUITEMACINTEGRATION_CID);
 #elif defined(NS_SUITEGNOMEINTEGRATION_CID)
 NS_DEFINE_NAMED_CID(NS_SUITEGNOMEINTEGRATION_CID);
 #endif
+#endif
 NS_DEFINE_NAMED_CID(NS_SUITEDIRECTORYPROVIDER_CID);
 NS_DEFINE_NAMED_CID(NS_FEEDSNIFFER_CID);
 
 /////////////////////////////////////////////////////////////////////////////
 
 static const mozilla::Module::CIDEntry kSuiteCIDs[] = {
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
 #if defined(NS_SUITEWININTEGRATION_CID)
   { &kNS_SUITEWININTEGRATION_CID, false, NULL, nsWindowsShellServiceConstructor },
 #elif defined(NS_SUITEMACINTEGRATION_CID)
@@ -49,18 +56,21 @@ static const mozilla::Module::CIDEntry kSuiteCIDs[] = {
 #elif defined(NS_SUITEGNOMEINTEGRATION_CID)
   { &kNS_SUITEGNOMEINTEGRATION_CID, false, NULL, nsGNOMEShellServiceConstructor },
 #endif
+#endif
   { &kNS_SUITEDIRECTORYPROVIDER_CID, false, NULL, nsSuiteDirectoryProviderConstructor },
   { &kNS_FEEDSNIFFER_CID, false, NULL, nsFeedSnifferConstructor },
   { NULL }
 };
 
 static const mozilla::Module::ContractIDEntry kSuiteContracts[] = {
+#ifdef BINOC_NAVIGATOR_SHELLSERVICE
 #if defined(NS_SUITEWININTEGRATION_CID)
   { NS_SUITESHELLSERVICE_CONTRACTID, &kNS_SUITEWININTEGRATION_CID },
 #elif defined(NS_SUITEMACINTEGRATION_CID)
   { NS_SUITESHELLSERVICE_CONTRACTID, &kNS_SUITEMACINTEGRATION_CID },
 #elif defined(NS_SUITEGNOMEINTEGRATION_CID)
   { NS_SUITESHELLSERVICE_CONTRACTID, &kNS_SUITEGNOMEINTEGRATION_CID },
+#endif
 #endif
   { NS_SUITEDIRECTORYPROVIDER_CONTRACTID, &kNS_SUITEDIRECTORYPROVIDER_CID },
   { NS_FEEDSNIFFER_CONTRACTID, &kNS_FEEDSNIFFER_CID },

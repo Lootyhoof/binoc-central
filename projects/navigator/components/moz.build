@@ -13,10 +13,12 @@ DIRS += [
     'permissions',
     'places',
     'sessionstore',
-    'shell',
     'sidebar',
     'smile',
 ]
+
+if CONFIG['BINOC_NAVIGATOR_SHELLSERVICE']:
+    DIRS += ['shell']
 
 XPIDL_SOURCES += [
     'nsISuiteGlue.idl',
@@ -29,6 +31,7 @@ EXTRA_COMPONENTS += [
     'nsAboutRedirector.js',
     'nsBrowserContentHandler.js',
     'nsGopherProtocolStubHandler.js',
-    'nsSuiteGlue.js',
     'nsTypeAheadFind.js',
 ]
+
+EXTRA_PP_COMPONENTS += ['nsSuiteGlue.js']

@@ -11,9 +11,11 @@ XPCOMBinaryComponent('navigatorcomps')
 
 LOCAL_INCLUDES += [
     '../dirprovider/src',
-    '../feeds/src',
-    '../shell/src',
+    '../feeds/src'
 ]
+
+if CONFIG['BINOC_NAVIGATOR_SHELLSERVICE']:
+    LOCAL_INCLUDES += ['../shell/src']
 
 USE_LIBS += [
     'xpcomglue_s',
